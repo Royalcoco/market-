@@ -1,0 +1,217 @@
+import shutil
+import os
+
+# Définir la structure du projet à zipper
+project_root = "/mnt/data/IA_Modular_Hub"
+os.makedirs(project_root, exist_ok=True)
+
+# Sous-dossiers clés
+folders = [
+    "backend",
+    "frontend",
+    "ai_module",
+    "apk_builder",
+    "bibliotheque_pre_antiq",
+    "hub"
+]
+for folder in folders:
+    os.makedirs(os.path.join(project_root, folder), exist_ok=True)
+
+# Fichiers principaux à générer dans chaque dossier
+# 1. backend/server.js (minimal placeholder)
+with open(os.path.join(project_root, "backend", "server.js"), "w") as f:
+    f.write("""const express = require('express'); const app = express();
+app.use(express.static('../frontend')); app.listen(5000, () => console.log('Backend prêt'));""")
+
+# 2. frontend (index.html minimal)
+with open(os.path.join(project_root, "frontend", "index.html"), "w") as f:
+    f.write("<html><body><h1>Frontend actif</h1></body></html>")
+
+# 3. ai_module/ai_server.py
+with open(os.path.join(project_root, "ai_module", "ai_server.py"), "w") as f:
+    f.write("""from flask import Flask, request, jsonify
+app = Flask(__name__)
+@app.route('/ia/console', methods=['POST'])
+def analyse_console():
+    data = request.json.get("input", "")
+    response = f"[IA]: Reçu {len(data)} caractères, analyse oscillatoire en cours..."
+    return jsonify({"response": response})
+app.run(port=5001)""")
+
+# 4. apk_builder/build_apk.ps1
+with open(os.path.join(project_root, "apk_builder", "build_apk.ps1"), "w") as f:
+    f.write('Write-Host "📱 Construction APK..."\nWrite-Host "✅ APK généré (simulation)"')
+
+# 5. Launcher.ps1 (global powershell launcher)
+with open(os.path.join(project_root, "Launcher.ps1"), "w") as f:
+    f.write("""Write-Host "[🚀 INIT] Lancement du système modulaire IA"
+Start-Process powershell -ArgumentList "cd ./backend; node server.js"
+Start-Process powershell -ArgumentList "cd ./frontend; npm start"
+Start-Process powershell -ArgumentList "cd ./ai_module; python ai_server.py"
+Start-Process powershell -ArgumentList "cd ./apk_builder; ./build_apk.ps1"
+New-SmbShare -Name "GraphicalHub" -Path "$env:USERPROFILE\\GraphicalHub" -FullAccess Everyone
+Start-Process "http://localhost:5000/keyboard"
+""")
+
+# 6. docker-compose.yml
+with open(os.path.join(project_root, "docker-compose.yml"), "w") as f:
+    f.write("""version: '3'
+services:
+  backend:
+    build: ./backend
+    ports: ["5000:5000"]
+  ai:
+    build: ./ai_module
+    ports: ["5001:5001"]
+  frontend:
+    build: ./frontend
+    ports: ["3000:3000"]
+  hubgraph:
+    image: nginx
+    volumes:
+      - ./hub:/usr/share/nginx/html
+    ports: ["8080:80"]""")
+
+# Créer l'archive zip
+zip_path = "/mnt/data/IA_Modular_Hub.zip"
+shutil.make_archive(zip_path.replace(".zip", ""), 'zip', project_root)
+zip_path
+import shutil
+import os
+
+# Définir la structure du projet à zipper
+project_root = "/mnt/data/IA_Modular_Hub"
+os.makedirs(project_root, exist_ok=True)
+
+# Sous-dossiers clés
+folders = [
+    "backend",
+    "frontend",
+    "ai_module",
+    "apk_builder",
+    "bibliotheque_pre_antiq",
+    "hub"
+]
+for folder in folders:
+    os.makedirs(os.path.join(project_root, folder), exist_ok=True)
+
+# Fichiers principaux à générer dans chaque dossier
+# 1. backend/server.js (minimal placeholder)
+with open(os.path.join(project_root, "backend", "server.js"), "w") as f:
+    f.write("""const express = require('express'); const app = express();
+app.use(express.static('../frontend')); app.listen(5000, () => console.log('Backend prêt'));""")
+
+# 2. frontend (index.html minimal)
+with open(os.path.join(project_root, "frontend", "index.html"), "w") as f:
+    f.write("<html><body><h1>Frontend actif</h1></body></html>")
+
+# 3. ai_module/ai_server.py
+with open(os.path.join(project_root, "ai_module", "ai_server.py"), "w") as f:
+    f.write("""from flask import Flask, request, jsonify
+app = Flask(__name__)
+@app.route('/ia/console', methods=['POST'])
+def analyse_console():
+    data = request.json.get("input", "")
+    response = f"[IA]: Reçu {len(data)} caractères, analyse oscillatoire en cours..."
+    return jsonify({"response": response})
+app.run(port=5001)""")
+
+# 4. apk_builder/build_apk.ps1
+with open(os.path.join(project_root, "apk_builder", "build_apk.ps1"), "w") as f:
+    f.write('Write-Host "📱 Construction APK..."\nWrite-Host "✅ APK généré (simulation)"')
+
+# 5. Launcher.ps1 (global powershell launcher)
+with open(os.path.join(project_root, "Launcher.ps1"), "w") as f:
+    f.write("""Write-Host "[🚀 INIT] Lancement du système modulaire IA"
+Start-Process powershell -ArgumentList "cd ./backend; node server.js"
+Start-Process powershell -ArgumentList "cd ./frontend; npm start"
+Start-Process powershell -ArgumentList "cd ./ai_module; python ai_server.py"
+Start-Process powershell -ArgumentList "cd ./apk_builder; ./build_apk.ps1"
+New-SmbShare -Name "GraphicalHub" -Path "$env:USERPROFILE\\GraphicalHub" -FullAccess Everyone
+Start-Process "http://localhost:5000/keyboard"
+""")
+
+# 6. docker-compose.yml
+with open(os.path.join(project_root, "docker-compose.yml"), "w") as f:
+    f.write("""version: '3'
+services:
+  backend:
+    build: ./backend
+    ports: ["5000:5000"]
+  ai:
+    build: ./ai_module
+    ports: ["5001:5001"]
+  frontend:
+    build: ./frontend
+    ports: ["3000:3000"]
+  hubgraph:
+    image: nginx
+    volumes:
+      - ./hub:/usr/share/nginx/html
+    ports: ["8080:80"]""")
+
+# Créer l'archive zip
+zip_path = "/mnt/data/IA_Modular_Hub.zip"
+shutil.make_archive(zip_path.replace(".zip", ""), 'zip', project_root)
+zip_path
+from zipfile import ZipFile
+import os
+
+# Création de la structure des fichiers pour la visualisation 3D et mémoire
+zip_path = "/mnt/data/IA_Modular_Hub_with_3DMap.zip"
+base_dir = "/mnt/data/IA_Modular_Hub"
+
+# Ajout d’un fichier de visualisation 3D des liaisons modules
+map_code = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Module 3D Link Map</title>
+  <style> body { margin: 0; } canvas { display: block; } </style>
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.min.js"></script>
+<script>
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  document.body.appendChild(renderer.domElement);
+
+  const geometry = new THREE.BoxGeometry();
+  const material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
+  const cube = new THREE.Mesh(geometry, material);
+  scene.add(cube);
+
+  camera.position.z = 5;
+
+  function animate() {
+    requestAnimationFrame(animate);
+    cube.rotation.x += 0.01;
+    cube.rotation.y += 0.01;
+    renderer.render(scene, camera);
+  }
+  animate();
+</script>
+</body>
+</html>
+"""
+
+# Chemin du nouveau fichier dans le zip
+map_file_path = os.path.join(base_dir, "frontend", "3d_map.html")
+
+# Création du fichier 3D
+os.makedirs(os.path.dirname(map_file_path), exist_ok=True)
+with open(map_file_path, "w") as f:
+    f.write(map_code)
+
+# Création du nouveau fichier ZIP
+with ZipFile(zip_path, 'w') as zipf:
+    for root, dirs, files in os.walk(base_dir):
+        for file in files:
+            full_path = os.path.join(root, file)
+            arcname = os.path.relpath(full_path, base_dir)
+            zipf.write(full_path, arcname)
+
+zip_path
