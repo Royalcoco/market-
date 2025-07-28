@@ -1,0 +1,73 @@
+# Script : Acquisition & Déverrouillage Pré-Héritage (54%)
+# Auteur : IA locale · ChatGPT
+# Usage : Imbrication modulaire + activation de modules anciens + permission réseau graphique
+
+# Étape 1 : Initialisation du pipeline d'acquisition
+Write-Host "[INIT] Chargement du pipeline pré-antiquaire..."
+$libraryPath = "C:\Modules\Archive\PreAntiquaire"
+$modules = Get-ChildItem -Path $libraryPath -Filter *.psm1
+
+# Étape 2 : Chargement partiel (54%) des modules
+$moduleCount = [math]::Floor($modules.Count * 0.54)
+$selectedModules = $modules | Select-Object -First $moduleCount
+
+Write-Host "[INFO] Modules sélectionnés : $moduleCount sur $($modules.Count)"
+
+foreach ($mod in $selectedModules) {
+    Write-Host "[LOAD] Chargement du module : $($mod.Name)"
+    Import-Module $mod.FullName -Force
+}
+
+# Étape 3 : Création d’un terrain d’acquisition modulaire (graphique)
+$acquisitionGraph = @{
+    'hubing.on.com' = @{
+        'permission' = $true
+        'status' = 'injected'
+        'explain.by' = 1
+    }
+}
+
+# Étape 4 : Simulation de création d'APK modulaire (prototype modpack)
+function Export-ApkModule {
+    param([string]$Name, [string]$Output)
+
+    $apkPath = "$Output\$Name.apk"
+    Write-Host "[BUILD] Construction du module APK : $apkPath"
+    New-Item -ItemType File -Path $apkPath -Force | Out-Null
+    Add-Content -Path $apkPath -Value "// APK MODULE GENERATED - $Name"
+    return $apkPath
+}
+
+# Étape 5 : Préparation de l’environnement réseau graphique local
+function Configure-NetworkGraph {
+    Write-Host "[GRAPH] Initialisation du réseau visuel local..."
+    $res = @{
+        resolution = "1024x1024"
+        frequency = "0.7Hz"
+        latency = "1.3ms"
+        permissions = @("hubing.local", "hubing.on.com")
+    }
+    return $res
+}
+
+$networkGraph = Configure-NetworkGraph
+
+# Étape 6 : Export APK prototype vers environnement de test
+$apkExport = Export-ApkModule -Name "AI_Modulator_GraphX" -Output "C:\ExportedModules"
+Write-Host "[COMPLETE] APK exporté vers $apkExport"
+
+# Étape 7 : Évaluation logique de déclenchement (explain.by 0 - 1)
+function Get-ExplainMode {
+    $mode = Get-Random -Minimum 0 -Maximum 2
+    return $mode
+}
+
+$explainBy = Get-ExplainMode
+Write-Host "[AI MODE] Logique explain.by activée → Mode: $explainBy"
+
+# Journal final
+Write-Host "`n[FINALISATION]"
+Write-Host "Modules pré-antiquaires activés : $moduleCount"
+Write-Host "APK généré : $apkExport"
+Write-Host "Réseau graphique local configuré : $($networkGraph.resolution)"
+Write-Host "Explain Mode : $explainBy"
